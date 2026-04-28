@@ -20,13 +20,13 @@ YOUTUBE_API_KEY=
 
 ## 환경 변수 설명
 
-| 변수명                   | 설명                    | 사용 목적                  |
-|-----------------------|-----------------------|------------------------|
-| OPENAI_API_KEY        | OpenAI API 인증 키       | AI 대화 생성, 피드백 생성       |
-| AZURE_SPEECH_KEY      | Azure Speech 인증 키     | 음성 인식(STT), 음성 합성(TTS) |
-| AZURE_SPEECH_REGION   | Azure Speech 리전 정보    | 예: `koreacentral`      |
-| AZURE_SPEECH_ENDPOINT | Azure Speech 엔드포인트    | Speech API 호출 주소       |
-| YOUTUBE_API_KEY       | YouTube Data API 인증 키 | 학습 콘텐츠 추천, 영상 검색       |
+| 변수명                   | 설명                    | 사용 목적             |
+|-----------------------|-----------------------|-------------------|
+| OPENAI_API_KEY        | OpenAI API 인증 키       | AI 대화 생성, 피드백 생성  |
+| AZURE_SPEECH_KEY      | Azure Speech 인증 키     | 음성 인식(STT),발음 평가       |
+| AZURE_SPEECH_REGION   | Azure Speech 리전 정보    | 예: `koreacentral` |
+| AZURE_SPEECH_ENDPOINT | Azure Speech 엔드포인트    | Speech API 호출 주소  |
+| YOUTUBE_API_KEY       | YouTube Data API 인증 키 | 학습 콘텐츠 추천, 영상 검색  |
 
 ---
 
