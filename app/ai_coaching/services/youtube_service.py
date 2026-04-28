@@ -2,7 +2,10 @@ import requests
 from app.core.config import settings
 from app.ai_coaching.schemas.youtube_schema import (
     YoutubeSearchResponse,
-    YoutubeVideoItem,)
+    YoutubeVideoItem,
+    VideoSummaryRequest,
+)
+from app.ai_coaching.services.openai_service import summarize_video_with_llm
 
 def search_youtube_videos(keyword: str,max_results: int,) -> YoutubeSearchResponse:
     if not keyword.strip():
@@ -36,9 +39,19 @@ def search_youtube_videos(keyword: str,max_results: int,) -> YoutubeSearchRespon
         snippet = item["snippet"]
         thumbnails = snippet.get("thumbnails", {})
         thumbnail_url = (
-            thumbnails.get("high", {}).get("url")
-            or thumbnails.get("medium", {}).get("url")
-            or thumbnails.get("default", {}).get("url", ""))
+                thumbnails.get("high", {}).get("url")
+                or thumbnails.get("medium", {}).get("url")
+                or thumbnails.get("default", {}).get("url", "")
+        )
+
+        description = snippet.get("description", "")
+
+        summary_response = summarize_video_with_llm(
+            VideoSummaryRequest(
+                title=snippet["title"],
+                channelTitle=snippet["channelTitle"],
+                description=description,)
+        )
 
         videos.append(
             YoutubeVideoItem(
@@ -46,7 +59,8 @@ def search_youtube_videos(keyword: str,max_results: int,) -> YoutubeSearchRespon
                 channelTitle=snippet["channelTitle"],
                 thumbnailUrl=thumbnail_url,
                 videoUrl=f"https://www.youtube.com/watch?v={video_id}",
-                description=snippet.get("description", ""),)
+                description=description,
+                summary=summary_response.summary,)
         )
 
     return YoutubeSearchResponse(youtubePicks=videos,)

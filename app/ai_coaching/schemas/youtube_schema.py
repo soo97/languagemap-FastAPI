@@ -4,7 +4,6 @@ from pydantic import BaseModel, Field
 # =========================
 # YouTube Search
 # =========================
-
 class YoutubeSearchRequest(BaseModel):
     keyword: str = Field(...,json_schema_extra={"example": "cafe English ordering politely"},)
     maxResults: int = Field(
@@ -17,6 +16,7 @@ class YoutubeVideoItem(BaseModel):
     thumbnailUrl: str
     videoUrl: str
     description: str | None = None
+    summary: str | None = None
 
 class YoutubeSearchResponse(BaseModel):
     youtubePicks: List[YoutubeVideoItem]
@@ -24,7 +24,6 @@ class YoutubeSearchResponse(BaseModel):
 # =========================
 # Video Summary
 # =========================
-
 class VideoSummaryRequest(BaseModel):
     title: str = Field(...,json_schema_extra={"example": "How to Order Coffee in English"},)
     channelTitle: str = Field(...,json_schema_extra={"example": "EnglishClass101"},)

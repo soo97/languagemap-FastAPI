@@ -4,7 +4,6 @@ from pydantic import BaseModel, Field
 # =========================
 # Common
 # =========================
-
 class PreviousMessage(BaseModel):
     role: str = Field(..., json_schema_extra={"example": "USER"})
     message: str = Field(..., json_schema_extra={"example": "I would like a latte, please."})
@@ -12,15 +11,13 @@ class PreviousMessage(BaseModel):
 # =========================
 # Coaching Script
 # =========================
-
 class CoachingScriptRequest(BaseModel):
     optionType: str = Field(..., json_schema_extra={"example": "WORD"})
     placeName: str = Field(..., json_schema_extra={"example": "Cafe Stage 888"})
     country: str = Field(..., json_schema_extra={"example": "Australia"})
     city: str = Field(..., json_schema_extra={"example": "Sydney"})
     placeAddress: str = Field(..., json_schema_extra={"example": "Near George St."})
-    scenarioPrompt: str = Field(..., json_schema_extra={"example": "Practice ordering coffee politely."})
-    evaluation: str = Field(default="", json_schema_extra={"example": "발음은 보통이고 표현은 자연스러움"})
+    evaluation: str = Field(default="", json_schema_extra={"example": "표현은 자연스럽고 주문 의도 전달이 잘 되었어요."})
     previousMessages: List[PreviousMessage] = Field(default_factory=list)
 
 class CoachingScriptItem(BaseModel):
@@ -33,7 +30,6 @@ class CoachingScriptResponse(BaseModel):
 # =========================
 # Final Feedback
 # =========================
-
 class PronunciationResult(BaseModel):
     expectedText: str
     recognizedText: str
@@ -68,7 +64,6 @@ class FinalFeedbackResponse(BaseModel):
 # =========================
 # Recommend Sentences
 # =========================
-
 class RecommendSentencesRequest(BaseModel):
     finalFeedback: str
 
@@ -78,7 +73,6 @@ class RecommendSentencesResponse(BaseModel):
 # =========================
 # YouTube Keywords
 # =========================
-
 class YoutubeKeywordsRequest(BaseModel):
     finalFeedback: str
 

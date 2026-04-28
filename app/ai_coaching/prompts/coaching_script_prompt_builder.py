@@ -11,7 +11,6 @@ def build_coaching_script_prompt(
     country: str,
     city: str,
     place_address: str,
-    scenario_prompt: str,
     evaluation: str,
     previous_messages: Sequence[MessageLike],
 ) -> str:
@@ -30,19 +29,55 @@ You create short, practical speaking practice scripts based on place and scenari
 """
 
     instruction = """
-Return ONLY valid JSON.
-Do not include markdown.
-Do not include extra explanation.
+    Return ONLY valid JSON.
+    Do not include markdown.
+    Do not include extra explanation.
 
-Rules:
-- Create 4 to 6 messages.
-- The first message must be ASSISTANT.
-- Alternate ASSISTANT and USER.
-- USER messages are sample answers for the learner.
-- Use natural spoken English.
-- Keep each message short.
-- Keep the dialogue related to the given place and scenario.
-"""
+    Rules:
+    - The output must be based on the previous map learning messages.
+    - Do not ignore the previous dialogue.
+    - Keep the dialogue related to the given place and scenario.
+    - The first message must be ASSISTANT.
+    - Alternate ASSISTANT and USER.
+    - USER messages are sample answers for the learner.
+    - Use natural spoken English.
+    - Keep each message short.
+
+    Important:
+    - USER messages are not fixed answers.
+    - USER messages must also be rewritten according to the selected optionType.
+    - For WORD option, every USER message should contain at least one vocabulary upgrade.
+    - Do not copy previous USER messages with only tiny changes.
+    
+    Option-specific rules:
+    - If optionType is WORD:
+      - Keep the same dialogue flow, roles, and message order.
+      - Rewrite BOTH ASSISTANT and USER messages.
+      - Each USER message must include at least one upgraded vocabulary word or phrase.
+      - Do not keep USER messages almost identical to the previous messages.
+      - Replace basic expressions with slightly more advanced spoken English.
+      - Keep the grammar structure mostly the same.
+      - Keep the meaning almost the same.
+      - Do not create a completely new conversation.
+      - Do not add unnecessary new turns.
+    
+      Vocabulary upgrade examples:
+      - would like -> would prefer
+      - order -> get / have / purchase
+      - size -> cup size
+      - medium -> regular-sized / medium-sized
+      - also -> additionally
+      - muffin -> pastry
+
+    - If optionType is GRAMMAR:
+      - Keep the original dialogue flow.
+      - Improve sentence structure and grammar.
+      - Do not mainly change vocabulary.
+
+    - If optionType is DIALOGUE:
+      - Add more turns to the conversation.
+      - Keep the same scenario and place context.
+    """
 
     context = f"""
 [Option Type]
@@ -56,9 +91,6 @@ placeName: {place_name}
 country: {country}
 city: {city}
 placeAddress: {place_address}
-
-[Scenario Prompt]
-{scenario_prompt}
 
 [Previous Map Learning Evaluation]
 {evaluation}

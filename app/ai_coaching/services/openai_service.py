@@ -82,7 +82,6 @@ def generate_coaching_script(request: CoachingScriptRequest) -> CoachingScriptRe
         country=request.country,
         city=request.city,
         place_address=request.placeAddress,
-        scenario_prompt=request.scenarioPrompt,
         evaluation=request.evaluation,
         previous_messages=request.previousMessages,)
 
