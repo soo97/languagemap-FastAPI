@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from app.ai_coaching.api.ai_coaching_router import router as ai_coaching_router
+# test deploy
 
 app = FastAPI(
     title="LanguageMap FastAPI",
