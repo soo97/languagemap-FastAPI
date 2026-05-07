@@ -4,6 +4,7 @@ import azure.cognitiveservices.speech as speechsdk
 from fastapi import UploadFile
 from app.core.config import settings
 from app.ai_coaching.services.openai_service import analyze_pronunciation_feedback
+from app.ai_coaching.services.audio_file_service import convert_audio_to_wav
 from app.ai_coaching.schemas.azure_speech_schema import (
     ProblemWordAudioResponse,
     PronunciationAssessmentResponse,
@@ -167,9 +168,11 @@ async def assess_pronunciation(
 ) -> PronunciationAssessmentResponse:
     saved_path = await save_upload_file(audio_file)
 
+    wav_path = convert_audio_to_wav(saved_path)
+
     return assess_pronunciation_from_path(
-        saved_path=saved_path,
-        reference_text=reference_text,
+        wav_path,
+        reference_text,
     )
 
 
@@ -179,8 +182,10 @@ async def recognize_and_assess_pronunciation(
 ) -> PronunciationAssessmentResponse:
     saved_path = await save_upload_file(audio_file)
 
+    wav_path = convert_audio_to_wav(saved_path)
+
     return assess_pronunciation_from_path(
-        saved_path=saved_path,
+        saved_path=wav_path,
         reference_text=reference_text,
     )
 
