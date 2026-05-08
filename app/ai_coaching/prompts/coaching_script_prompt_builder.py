@@ -42,7 +42,7 @@ You create short, practical speaking practice scripts based on place and scenari
     - USER messages are sample answers for the learner.
     - Use natural spoken English.
     - Keep each message short.
-
+    
     Important:
     - USER messages are not fixed answers.
     - USER messages must also be rewritten according to the selected optionType.
@@ -103,11 +103,23 @@ placeAddress: {place_address}
 [Output JSON Format]
 {
   "messages": [
-  {"role":"ASSISTANT","message":"..."},
-  {"role":"USER","message":"..."},
-  {"role":"ASSISTANT","message":"..."},
-  {"role":"USER","message":"..."}
-]
+    {
+      "role": "ASSISTANT",
+      "message": "Hello. How can I help you today?"
+    },
+    {
+      "role": "USER",
+      "message": "I would like to ask for some help."
+    }
+    {
+      "role": "ASSISTANT",
+      "message": "How can I help you?"
+    },
+    {
+      "role": "USER",
+      "message": "No, thanks."
+    }
+  ]
 }
 """
 
