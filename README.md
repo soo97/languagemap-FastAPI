@@ -198,4 +198,4 @@ git clone https://github.com/soo97/languagemap-FastAPI.git
 | 마은재 | 팀원 | // |
 | 이가연 | 팀원 | // |
 | 이현재 | 팀원 | // |
-| 홍순찬 | 팀원 | // |
+| 홍순찬 | 팀원 | (사용자)/(관리자) 지도 기반 영어 학습 기능 구현 |
